@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vincent — Present Tense Finance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --p1: #a0a0ba;
+    --p2: #dadaf9;
+    --p3: #ededfd;
+    --p4: #9893da;
+    --ink: #1C1915;
+    --ink-soft: #4A443C;
+    --ink-muted: #8A8278;
+    --surface: #fefefe;
+    --warm-mid: #e8e4f0;
+    --warm-cream: #f5f3fb;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Fraunces', Georgia, serif;
+    background: var(--surface);
+    color: var(--ink);
+    min-height: 100vh;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    padding: 3.5rem 2.5rem 2.5rem;
+    border-bottom: 1px solid var(--warm-mid);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 380px; height: 380px;
+    border-radius: 50%;
+    background: var(--p3);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  .mode-badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    background: var(--p3);
+    color: var(--p1);
+    margin-bottom: 1.4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.6rem, 7vw, 4.2rem);
+    font-weight: 300;
+    line-height: 1.08;
+    letter-spacing: -.025em;
+    margin-bottom: .6rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--p4);
+  }
+
+  .guiding-q {
+    font-size: .88rem;
+    font-family: 'DM Mono', monospace;
+    color: var(--ink-muted);
+    margin-top: 1.1rem;
+    letter-spacing: .03em;
+    border-left: 2px solid var(--p4);
+    padding-left: .8rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-lede {
+    font-size: 1.15rem;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 520px;
+    margin-top: 1.25rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-lede em { font-style: italic; color: var(--p4); }
+
+  .hero-cta {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--p4);
+    border: 1px solid var(--p2);
+    border-radius: 2px;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background .2s, border-color .2s;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    background: none;
+  }
+
+  .hero-cta:hover { background: var(--p3); border-color: var(--p4); }
+
+  /* ── Nav ── */
+  .nav {
+    display: flex;
+    border-bottom: 1px solid var(--warm-mid);
+    overflow-x: auto;
+    scrollbar-width: none;
+    position: sticky;
+    top: 0;
+    background: var(--surface);
+    z-index: 10;
+  }
+
+  .nav::-webkit-scrollbar { display: none; }
+
+  .nav button {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: .9rem 1.2rem;
+    color: var(--ink-muted);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color .2s, border-color .2s;
+  }
+
+  .nav button:hover { color: var(--ink); }
+
+  .nav button.active {
+    color: var(--p4);
+    border-bottom-color: var(--p4);
+  }
+
+  /* ── Panels ── */
+  .panel { display: none; padding: 2.5rem; animation: fadeIn .3s ease; }
+  .panel.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(7px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Typography helpers ── */
+  .sec-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--p1);
+    margin-bottom: .7rem;
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+  }
+
+  .sec-label::after {
+    content: '';
+    display: block;
+    height: 1px;
+    flex: 1;
+    background: var(--warm-mid);
+  }
+
+  .statement {
+    font-size: 1.18rem;
+    font-weight: 300;
+    line-height: 1.68;
+    color: var(--ink);
+    margin-bottom: 1.75rem;
+    max-width: 580px;
+  }
+
+  .statement em { font-style: italic; color: var(--p4); }
+
+  .big-q {
+    font-size: 1.55rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--p4);
+    margin: 1.5rem 0;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--warm-mid);
+    margin: 1.75rem 0;
+  }
+
+  /* ── Pills ── */
+  .pill-row { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+
+  .pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .06em;
+    border: 1px solid var(--p2);
+    border-radius: 100px;
+    padding: 4px 13px;
+    color: var(--p1);
+    background: var(--p3);
+  }
+
+  /* ── Accordions ── */
+  .chapter-list { list-style: none; }
+
+  .chapter-item {
+    border-bottom: 1px solid var(--warm-mid);
+    padding: 1.25rem 0;
+    cursor: pointer;
+  }
+
+  .chapter-item:first-child { border-top: 1px solid var(--warm-mid); }
+
+  .chapter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .chapter-title {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  .chapter-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--p1);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .chapter-chevron {
+    font-size: 14px;
+    color: var(--p1);
+    transition: transform .2s;
+    display: inline-block;
+    margin-left: .3rem;
+  }
+
+  .chapter-item.open .chapter-chevron { transform: rotate(90deg); }
+
+  .chapter-body {
+    display: none;
+    margin-top: .8rem;
+    font-size: .92rem;
+    line-height: 1.68;
+    color: var(--ink-soft);
+    max-width: 560px;
+    animation: fadeIn .25s ease;
+  }
+
+  .chapter-item.open .chapter-body { display: block; }
+
+  /* ── Mode cards ── */
+  .mode-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .mode-card {
+    border: 1px solid var(--p2);
+    border-radius: 4px;
+    padding: 1.3rem 1.1rem;
+    background: var(--warm-cream);
+    cursor: pointer;
+    transition: border-color .2s, background .2s;
+    text-align: left;
+  }
+
+  .mode-card:hover { border-color: var(--p4); background: var(--surface); }
+  .mode-card.lit  { border-color: var(--p4); background: var(--surface); }
+
+  .mode-name { font-size: .97rem; font-weight: 500; margin-bottom: .3rem; }
+
+  .mode-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--p1);
+    letter-spacing: .06em;
+  }
+
+  .mode-detail {
+    display: none;
+    font-size: .9rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    border-left: 2px solid var(--p4);
+    padding-left: 1rem;
+    margin-top: .8rem;
+    animation: fadeIn .25s ease;
+  }
+
+  .mode-card.lit .mode-detail { display: block; }
+
+  /* ── Skills grid ── */
+  .skill-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1px;
+    border: 1px solid var(--p2);
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--p2);
+    margin-bottom: 2rem;
+  }
+
+  .skill-cell {
+    background: var(--surface);
+    padding: 1.15rem 1.25rem;
+    cursor: pointer;
+    transition: background .18s;
+    position: relative;
+  }
+
+  .skill-cell:hover { background: var(--warm-cream); }
+  .skill-cell.active { background: var(--warm-cream); }
+
+  .skill-cell.active::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 2px;
+    background: var(--p4);
+  }
+
+  .skill-name { font-size: .93rem; font-weight: 500; line-height: 1.3; margin-bottom: .25rem; }
+
+  .skill-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--p1);
+  }
+
+  .skill-expand {
+    display: none;
+    margin-top: .7rem;
+    font-size: .88rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    animation: fadeIn .2s ease;
+  }
+
+  .skill-cell.active .skill-expand { display: block; }
+
+  /* ── Note block ── */
+  .note-block {
+    border-left: 2px solid var(--p4);
+    padding-left: 1rem;
+    font-size: .93rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin-bottom: 2rem;
+  }
+
+  .note-block strong { font-weight: 500; font-style: normal; color: var(--ink); }
+
+  /* ── Stamp ── */
+  .stamp {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .1em;
+    border: 1px solid var(--p2);
+    padding: 5px 14px;
+    border-radius: 100px;
+    color: var(--p1);
+    margin-bottom: 1.4rem;
+  }
+
+  /* ── Contact grid ── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .contact-card {
+    background: var(--warm-cream);
+    border: 1px solid var(--p2);
+    border-radius: 4px;
+    padding: 1.1rem;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color .2s;
+    display: block;
+  }
+
+  .contact-card:hover { border-color: var(--p4); }
+
+  .c-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .1em;
+    color: var(--p1);
+    margin-bottom: .3rem;
+  }
+
+  .c-value { font-size: .95rem; color: var(--ink); }
+
+  /* ── Mobile ── */
+  @media (max-width: 600px) {
+    .hero { padding: 2.2rem 1.4rem 2rem; }
+    .panel { padding: 1.8rem 1.4rem; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .nav button { padding: .85rem .9rem; font-size: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Hero ── -->
+<header class="hero">
+  <div class="mode-badge">Present Tense Finance</div>
+  <h1>Vincent<br>is <em>figuring<br>it out.</em></h1>
+  <p class="hero-lede">Trauma-aware financial coach. Builder of tools, systems, and content. The work starts with feelings — <em>because that's where the money problem actually lives.</em></p>
+  <button class="hero-cta" onclick="document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});document.getElementById('meet').classList.add('active');document.querySelectorAll('.nav button').forEach(function(b){b.classList.toggle('active',b.dataset.panel==='meet')})">Work with me →</button>
+  <p class="guiding-q">Am I using my life, or is my life using me?</p>
+</header>
+
+<!-- ── Nav ── -->
+<nav class="nav">
+  <button class="active" data-panel="how">How I think</button>
+  <button data-panel="what">What I build</button>
+  <button data-panel="arc">Where I've been</button>
+  <button data-panel="modes">How I work</button>
+  <button data-panel="skills">Last 60 days</button>
+  <button data-panel="meet">Meet me</button>
+</nav>
+
+<!-- ── Panel: How I think ── -->
+<section id="how" class="panel active">
+  <p class="sec-label">The short version</p>
+  <p class="statement">Most financial coaching fails because it treats a <em>shame problem</em> like a math problem. I do the opposite — feelings first, numbers second — and I build the tools to make that approach work at scale.</p>
+  <p class="statement" style="font-size:1rem;">I'm a former tech worker and school bus driver working toward math teacher certification. Along the way I founded Present Tense Finance, taught myself to ship web products, and started building AI systems for small businesses. The through-line is always the same: meet people where they actually are.</p>
+  <hr class="divider">
+  <p class="sec-label">The operating system</p>
+  <p class="statement" style="font-size:1rem;">I build things because building is how I think. Not build-to-scale, build-for-applause — build because the problem is interesting and something needs to exist that doesn't yet.</p>
+  <hr class="divider">
+  <p class="sec-label">The frame I keep returning to</p>
+  <div class="big-q">"Am I using my life, or is my life using me?"</div>
+  <p class="statement" style="font-size:1rem;">This question shows up in my coaching, my content, my calendar. If I can't answer yes to the first half, I change something.</p>
+  <hr class="divider">
+  <p class="sec-label">What I'm not</p>
+  <div class="pill-row">
+    <span class="pill">not performative</span>
+    <span class="pill">not hustle-culture</span>
+    <span class="pill">not a credential collector</span>
+    <span class="pill">not waiting to be ready</span>
+    <span class="pill">not interested in fluff</span>
+  </div>
+</section>
+
+<!-- ── Panel: What I build ── -->
+<section id="what" class="panel">
+  <p class="sec-label">Things that exist because I built them</p>
+  <ul class="chapter-list" id="what-list"></ul>
+</section>
+
+<!-- ── Panel: Where I've been ── -->
+<section id="arc" class="panel">
+  <p class="sec-label">The honest arc</p>
+  <p class="statement">Tech worker → school bus driver → aspiring math teacher → financial coach → builder. It's a weird line. It's also a perfectly straight one, once you see it.</p>
+  <ul class="chapter-list" id="arc-list"></ul>
+</section>
+
+<!-- ── Panel: How I work ── -->
+<section id="modes" class="panel">
+  <p class="sec-label">How I actually operate</p>
+  <p class="statement" style="font-size:1rem;margin-bottom:1.5rem;">Three modes. Not job titles — energy states. Click to see what each one looks like in practice.</p>
+  <div class="mode-cards">
+    <div class="mode-card" data-mode>
+      <div class="mode-name">Tinker</div>
+      <div class="mode-sub">Play + Build</div>
+      <div class="mode-detail">This is where the weird stuff lives. I build a tool because the problem is interesting. I make this page because "resume" felt wrong. Build and Process are inseparable right now — I learn by making.</div>
+    </div>
+    <div class="mode-card" data-mode>
+      <div class="mode-name">Riff</div>
+      <div class="mode-sub">Play + Process</div>
+      <div class="mode-detail">Thinking out loud — in conversation, in content, in frameworks. This is how I develop ideas. I talk my way to clarity. The YouTube arc started as a riff. Most of PTF did.</div>
+    </div>
+    <div class="mode-card" data-mode>
+      <div class="mode-name">Chicken Tenders</div>
+      <div class="mode-sub">Logistics</div>
+      <div class="mode-detail">Unsexy, non-negotiable. Emails get sent. Deployments get checked. Invoices get submitted. The lights stay on. I don't romanticize this one. I just do it.</div>
+    </div>
+  </div>
+  <hr class="divider">
+  <p class="sec-label">Design sensibility</p>
+  <div class="pill-row">
+    <span class="pill">warm</span>
+    <span class="pill">direct</span>
+    <span class="pill">no fluff</span>
+    <span class="pill">feelings first</span>
+    <span class="pill">present tense</span>
+    <span class="pill">nothing performative</span>
+    <span class="pill">the real thing or nothing</span>
+  </div>
+</section>
+
+<!-- ── Panel: Last 60 days ── -->
+<section id="skills" class="panel">
+  <div class="stamp">Last 60 days · Learned by doing</div>
+  <p class="statement" style="font-size:1rem;margin-bottom:1.5rem;">These aren't credentials. They're <em>reps</em> — things that exist now, on the internet, in people's hands, that didn't before.</p>
+  <div class="skill-grid" id="skill-grid"></div>
+  <div class="note-block">
+    <strong>The through-line:</strong> Every skill on this list was learned in the context of building something real. Not a tutorial. Not a course. A thing that ships, that someone can use, that has to actually work.
+  </div>
+</section>
+
+<!-- ── Panel: Meet me ── -->
+<section id="meet" class="panel">
+  <p class="sec-label">If you want to actually connect</p>
+  <p class="statement" style="font-size:1rem;">I'm not trying to scale a network. I'm trying to be useful to people who are already well-connected — or building something real. If that's you, reach out.</p>
+  <div class="contact-grid">
+    <a class="contact-card" href="https://www.youtube.com/@PresentTenseFinance" target="_blank" rel="noopener">
+      <div class="c-label">YouTube</div>
+      <div class="c-value">Present Tense Finance</div>
+    </a>
+    <a class="contact-card" href="https://calendly.com/presenttensefinance" target="_blank" rel="noopener">
+      <div class="c-label">Coaching</div>
+      <div class="c-value">Book a call</div>
+    </a>
+    <a class="contact-card" href="https://www.teacherspayteachers.com/Product/Building-a-Budget-Complete-9th-Grade-Personal-Finance-Lesson-50-min-16257693" target="_blank" rel="noopener">
+      <div class="c-label">Free lesson — TPT</div>
+      <div class="c-value">Building a Budget</div>
+    </a>
+    <a class="contact-card" href="https://www.etsy.com/listing/4487672037/present-tense-finance-google-sheets?sr_prefetch=0&pf_from=shop_home&ref=shop_home_active_1&dd=1&logging_key=5192493975fce98face0f9a05539b83b44049199%3A4487672037" target="_blank" rel="noopener">
+      <div class="c-label">Budget template</div>
+      <div class="c-value">Etsy — Mindful Money</div>
+    </a>
+  </div>
+  <hr class="divider">
+  <p class="sec-label">Currently working on</p>
+  <p class="statement" style="font-size:.93rem;color:var(--ink-soft);">Closing the first PTF client. Per-client AI prompt configs. Hitting $7k savings by August. Posting Thursdays. Asking the guiding question. Repeat.</p>
+  <hr class="divider">
+  <div class="big-q">"Because right now matters."</div>
+</section>
+
+<script>
+  const whatItems = [
+    {
+      title: "Present Tense Finance",
+      tag: "Coaching · Active",
+      body: "Trauma-aware financial coaching for single moms and anyone mid-figuring-it-out. The core insight: money shame is the actual barrier. The numbers are just the symptom. So I start with the feelings — every session, every time — and let the math follow. Weekly YouTube content. Live clients. One pager in the wild."
+    },
+    {
+      title: "AI lead capture system",
+      tag: "Automation · Live",
+      body: "A deployable AI-powered lead capture and qualification system. Python/Flask, Railway, Google Sheets, Anthropic API. Per-client persona customization baked in from day one. This is also my sales practice — I'm learning to close by building something worth closing."
+    },
+
+    {
+      title: "Building a Budget — free lesson on TPT",
+      tag: "Edtech · Free",
+      body: "A free 50-minute personal finance lesson for young adults, hosted on Teachers Pay Teachers. Complete 9th grade unit — budgeting, real decisions, no textbook fluff. Built because the gap between what schools teach about money and what people actually need to know is enormous."
+    },
+    {
+      title: "PTF YouTube",
+      tag: "Content · Thursdays 7:30 MST",
+      body: "Weekly content on money, shame, and the actual work of changing your relationship with both. The arc is alive — it evolves the same way the coaching does, the same way I do. Methodology-driven, not tips-driven. Figuring itself out in public, on purpose."
+    },
+    {
+      title: "PDF workbook + affiliate model",
+      tag: "Product · In progress",
+      body: "A standalone workbook product with an influencer affiliate distribution model. Building the product and the outreach strategy in parallel — cold enough to be replicable, warm enough to be human."
+    }
+  ];
+
+  const arcItems = [
+    {
+      title: "Tech worker",
+      tag: "The foundation",
+      body: "Worked in tech long enough to understand systems, tooling, and how products actually get built. Left when the fit stopped making sense. Kept the skills."
+    },
+    {
+      title: "School bus driver — special needs",
+      tag: "The unexpected teacher",
+      body: "Drove a school bus for kids with special needs for several years. This job taught presence. Patience. Regulation — your own, first, so you can hold space for someone else's. The kids who need the most from you give you the clearest feedback. That's the best training there is, and it shows up in everything I do now."
+    },
+    {
+      title: "Aspiring math teacher",
+      tag: "In progress",
+      body: "Working toward certification. Math teaching is where I'm headed — not away from coaching or building, but alongside it. The classroom is where I first learned that most people aren't stuck because they're not smart. They're stuck because no one made it safe to not know yet."
+    },
+    {
+      title: "Present Tense Finance",
+      tag: "The synthesis",
+      body: "Financial coaching that starts with feelings. Built for the people who already know what to do but can't make themselves do it — because the shame is in the way. Everything before this converges here: the tech intuition, the patience from the bus, the math teacher's instinct to meet people where they are."
+    }
+  ];
+
+  const skillItems = [
+    {
+      name: "Build and ship web products",
+      tag: "Making",
+      detail: "HTML, CSS, JS — not as a developer but as a builder. Paginated experiences, theming systems, audio integration, persistent data, deployment via GitHub and Netlify. You didn't learn to code, you learned to make things exist on the internet."
+    },
+    {
+      name: "Work with AI as a collaborator",
+      tag: "Thinking",
+      detail: "Not just prompting. Thinking in sessions, building thread, knowing when to push and when to park. Claude as a thinking partner — not a vending machine."
+    },
+    {
+      name: "Create and edit audio",
+      tag: "Production",
+      detail: "Recording narration, managing clips, understanding how browsers handle audio playback, working around mobile constraints. CapCut for short form. A whole audio layer on a web product."
+    },
+    {
+      name: "Write in a voice",
+      tag: "Voice",
+      detail: "The workbook, the scripts, the guide narration, the one pager — all of it has the same register. Warm, direct, shame-free. This is a skill most people don't know they're developing until they look back."
+    },
+    {
+      name: "Content architecture",
+      tag: "Systems",
+      detail: "Longform to shortform to persistent text to workbook. Knowing how ideas travel across formats and compound over time."
+    },
+    {
+      name: "Think in systems",
+      tag: "Strategy",
+      detail: "Funnels, onramps, flywheels — not as buzzwords but as actual decisions about what connects to what and why."
+    },
+    {
+      name: "Affiliate and outreach strategy",
+      tag: "Outreach",
+      detail: "Cold enough to be replicable, warm enough to be human. The structure of a clear and honest ask."
+    },
+    {
+      name: "Long and short form video",
+      tag: "Video",
+      detail: "Scripting, on-camera presence, pacing, the edit, thumbnails, hooks — the specific grammar of YouTube versus a short. Still being developed. Weekly reps are the teacher. There's no shortcut."
+    }
+  ];
+
+  function buildAccordion(listId, items) {
+    const ul = document.getElementById(listId);
+    items.forEach(item => {
+      const li = document.createElement('li');
+      li.className = 'chapter-item';
+      li.innerHTML =
+        '<div class="chapter-header">' +
+          '<span class="chapter-title">' + item.title + ' <span class="chapter-chevron">›</span></span>' +
+          '<span class="chapter-tag">' + item.tag + '</span>' +
+        '</div>' +
+        '<div class="chapter-body">' + item.body + '</div>';
+      li.addEventListener('click', function() {
+        var isOpen = li.classList.contains('open');
+        ul.querySelectorAll('.chapter-item').forEach(function(c) { c.classList.remove('open'); });
+        if (!isOpen) li.classList.add('open');
+      });
+      ul.appendChild(li);
+    });
+  }
+
+  function buildSkills() {
+    var grid = document.getElementById('skill-grid');
+    skillItems.forEach(function(s) {
+      var cell = document.createElement('div');
+      cell.className = 'skill-cell';
+      cell.innerHTML =
+        '<div class="skill-name">' + s.name + '</div>' +
+        '<div class="skill-tag">' + s.tag + '</div>' +
+        '<div class="skill-expand">' + s.detail + '</div>';
+      cell.addEventListener('click', function() {
+        var isActive = cell.classList.contains('active');
+        grid.querySelectorAll('.skill-cell').forEach(function(c) { c.classList.remove('active'); });
+        if (!isActive) cell.classList.add('active');
+      });
+      grid.appendChild(cell);
+    });
+  }
+
+  document.querySelectorAll('.nav button').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('active'); });
+      document.querySelectorAll('.nav button').forEach(function(b) { b.classList.remove('active'); });
+      document.getElementById(btn.dataset.panel).classList.add('active');
+      btn.classList.add('active');
+    });
+  });
+
+  document.querySelectorAll('[data-mode]').forEach(function(card) {
+    card.addEventListener('click', function() {
+      var isLit = card.classList.contains('lit');
+      document.querySelectorAll('[data-mode]').forEach(function(c) { c.classList.remove('lit'); });
+      if (!isLit) card.classList.add('lit');
+    });
+  });
+
+  buildAccordion('what-list', whatItems);
+  buildAccordion('arc-list', arcItems);
+  buildSkills();
+</script>
+</body>
+</html>
