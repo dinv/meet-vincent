@@ -3,1240 +3,892 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PTF Positioning Report — Vincent</title>
+<title>Vincent — Present Tense Finance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-:root {
-  --bg: #0a0a0a;
-  --bg2: #141416;
-  --bg3: #1c1c1e;
-  --bg4: #2c2c2e;
-  --text: #f5f5f7;
-  --text2: #a1a1a6;
-  --text3: #6e6e73;
-  --accent: #0a84ff;
-  --green: #30d158;
-  --red: #ff453a;
-  --border: rgba(255,255,255,0.08);
-  --border2: rgba(255,255,255,0.12);
-  --amber: #ffd60a;
-}
-
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif;
-  line-height: 1.5;
-}
-
-.wrap { max-width: 1080px; margin: 0 auto; padding: 0 2rem; }
-
-/* HERO */
-.hero {
-  padding: 120px 0 100px;
-  border-bottom: 1px solid var(--border);
-  position: relative;
-  overflow: hidden;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -200px; right: -200px;
-  width: 600px; height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(10,132,255,0.08) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.eyebrow {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text3);
-  margin-bottom: 1.5rem;
-}
-
-.hero h1 {
-  font-size: clamp(48px, 7vw, 88px);
-  font-weight: 600;
-  letter-spacing: -0.035em;
-  line-height: 1.02;
-  margin-bottom: 1.5rem;
-  max-width: 800px;
-}
-
-.hero h1 em {
-  font-style: italic;
-  color: var(--accent);
-}
-
-.hero-sub {
-  font-size: 19px;
-  font-weight: 400;
-  color: var(--text2);
-  max-width: 580px;
-  line-height: 1.6;
-  margin-bottom: 2.5rem;
-}
-
-.hook-card {
-  display: inline-block;
-  background: var(--bg3);
-  border: 1px solid var(--border2);
-  border-radius: 12px;
-  padding: 1.25rem 1.75rem;
-}
-
-.hook-card .hook-label {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text3);
-  margin-bottom: 0.5rem;
-}
-
-.hook-card .hook-text {
-  font-size: 22px;
-  font-style: italic;
-  font-weight: 300;
-  color: var(--text);
-  letter-spacing: -0.01em;
-}
-
-/* AT A GLANCE */
-.at-a-glance {
-  padding: 80px 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.section-eyebrow {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text3);
-  margin-bottom: 2.5rem;
-}
-
-.glance-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-}
-
-.glance-card {
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 1.5rem;
-}
-
-.glance-label {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text3);
-  margin-bottom: 0.75rem;
-}
-
-.glance-value {
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--text);
-  line-height: 1.4;
-}
-
-.score-big {
-  font-size: 56px;
-  font-weight: 600;
-  letter-spacing: -0.04em;
-  color: var(--green);
-  line-height: 1;
-  margin-bottom: 0.25rem;
-}
-
-.trend-big {
-  font-size: 28px;
-  font-weight: 600;
-  color: var(--green);
-  margin-bottom: 0.25rem;
-}
-
-/* MARKET SNAPSHOT */
-.market-snapshot {
-  padding: 80px 0;
-  border-bottom: 1px solid var(--border);
-  background: var(--bg2);
-}
-
-.section-title {
-  font-size: clamp(28px, 4vw, 44px);
-  font-weight: 600;
-  letter-spacing: -0.025em;
-  line-height: 1.1;
-  margin-bottom: 0.75rem;
-}
-
-.section-sub {
-  font-size: 17px;
-  color: var(--text2);
-  margin-bottom: 3rem;
-  max-width: 520px;
-}
-
-.stat-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-}
-
-.stat-card {
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1.5rem;
-}
-
-.stat-platform {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 0.75rem;
-}
-
-.stat-num {
-  font-size: 36px;
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  color: var(--text);
-  line-height: 1;
-  margin-bottom: 0.4rem;
-}
-
-.stat-label {
-  font-size: 13px;
-  color: var(--text2);
-  margin-bottom: 0.5rem;
-}
-
-.stat-context {
-  font-size: 12px;
-  color: var(--text3);
-  font-style: italic;
-}
-
-/* DATA TABLE */
-.data-table-section {
-  padding: 80px 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.data-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 14px;
-}
-
-.data-table th {
-  text-align: left;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text3);
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid var(--border2);
-}
-
-.data-table td {
-  padding: 0.9rem 1rem;
-  border-bottom: 1px solid var(--border);
-  vertical-align: middle;
-}
-
-.data-table tr:last-child td { border-bottom: none; }
-.data-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
-
-.cell-green { color: var(--green); font-weight: 500; }
-.cell-accent { color: var(--accent); }
-.cell-muted { color: var(--text3); }
-.cell-red { color: var(--red); }
-
-.arrow-up { color: var(--green); }
-.arrow-flat { color: var(--text3); }
-.arrow-down { color: var(--red); }
-
-.verdict { font-style: italic; color: var(--text2); font-size: 13px; }
-
-.table-footnote {
-  font-size: 11px;
-  color: var(--text3);
-  margin-top: 1rem;
-  font-style: italic;
-}
-
-/* AUDIENCE LANGUAGE */
-.audience-section {
-  padding: 80px 0;
-  border-bottom: 1px solid var(--border);
-  background: var(--bg2);
-}
-
-.quote-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-}
-
-.quote-col-label {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text3);
-  margin-bottom: 1rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--border);
-}
-
-.quote-card {
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-  position: relative;
-}
-
-.quote-mark {
-  font-size: 48px;
-  line-height: 0.8;
-  color: var(--text3);
-  font-family: Georgia, serif;
-  display: block;
-  margin-bottom: 0.75rem;
-}
-
-.quote-text {
-  font-size: 15px;
-  font-style: italic;
-  color: var(--text);
-  line-height: 1.6;
-  margin-bottom: 0.75rem;
-}
-
-.quote-source {
-  font-size: 11px;
-  color: var(--text3);
-  letter-spacing: 0.04em;
-}
-
-/* COMPETITOR TABLE */
-.competitor-section {
-  padding: 80px 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.competitor-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 14px;
-}
-
-.competitor-table th {
-  text-align: left;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text3);
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid var(--border2);
-}
-
-.competitor-table td {
-  padding: 1rem;
-  border-bottom: 1px solid var(--border);
-  vertical-align: top;
-}
-
-.competitor-table tr:nth-child(even) td { background: rgba(255,255,255,0.015); }
-.competitor-table tr:last-child td { border-bottom: none; }
-
-.miss-cell { color: var(--red); font-style: italic; }
-.opp-cell { color: var(--green); }
-
-/* THREE PILLARS */
-.pillars-section {
-  padding: 80px 0;
-  border-bottom: 1px solid var(--border);
-  background: var(--bg2);
-}
-
-.pillars-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin-top: 2.5rem;
-}
-
-.pillar-card {
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 2rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.pillar-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: var(--accent);
-}
-
-.pillar-card:nth-child(2)::before { background: var(--green); }
-.pillar-card:nth-child(3)::before { background: var(--amber); }
-
-.pillar-num {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text3);
-  margin-bottom: 0.75rem;
-}
-
-.pillar-name {
-  font-size: 22px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.75rem;
-}
-
-.pillar-def {
-  font-size: 14px;
-  color: var(--text2);
-  line-height: 1.6;
-  margin-bottom: 1.25rem;
-}
-
-.pillar-why {
-  font-size: 13px;
-  color: var(--text3);
-  line-height: 1.5;
-  border-top: 1px solid var(--border);
-  padding-top: 1rem;
-  margin-bottom: 1.25rem;
-}
-
-.pillar-score {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: rgba(48, 209, 88, 0.12);
-  border: 1px solid rgba(48,209,88,0.25);
-  border-radius: 6px;
-  padding: 0.35rem 0.75rem;
-}
-
-.pillar-card:nth-child(1) .pillar-score { background: rgba(10,132,255,0.12); border-color: rgba(10,132,255,0.25); }
-.pillar-card:nth-child(3) .pillar-score { background: rgba(255,214,10,0.1); border-color: rgba(255,214,10,0.25); }
-
-.score-num {
-  font-size: 22px;
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  color: var(--green);
-}
-.pillar-card:nth-child(1) .score-num { color: var(--accent); }
-.pillar-card:nth-child(3) .score-num { color: var(--amber); }
-
-.score-label {
-  font-size: 10px;
-  color: var(--text3);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-/* BLUE OCEAN */
-.blue-ocean {
-  padding: 80px 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.opp-list { margin-top: 2.5rem; }
-
-.opp-item {
-  display: flex;
-  gap: 2rem;
-  align-items: flex-start;
-  padding: 2rem 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.opp-item:last-child { border-bottom: none; }
-
-.opp-rank {
-  font-size: 48px;
-  font-weight: 600;
-  letter-spacing: -0.04em;
-  color: var(--text3);
-  line-height: 1;
-  min-width: 60px;
-  padding-top: 0.1rem;
-}
-
-.opp-content { flex: 1; }
-
-.opp-name {
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.5rem;
-}
-
-.opp-desc {
-  font-size: 15px;
-  color: var(--text2);
-  line-height: 1.6;
-  margin-bottom: 0.75rem;
-}
-
-.opp-why {
-  font-size: 13px;
-  color: var(--text3);
-  font-style: italic;
-  border-left: 2px solid var(--border2);
-  padding-left: 0.75rem;
-}
-
-.opp-score-wrap {
-  text-align: right;
-  min-width: 80px;
-}
-
-.opp-score {
-  font-size: 48px;
-  font-weight: 600;
-  letter-spacing: -0.04em;
-  color: var(--green);
-  line-height: 1;
-}
-
-.opp-score-label {
-  font-size: 10px;
-  color: var(--text3);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-/* DIFFERENTIATION */
-.diff-section {
-  padding: 80px 0;
-  border-bottom: 1px solid var(--border);
-  background: var(--bg2);
-}
-
-.diff-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin-top: 2.5rem;
-}
-
-.diff-col {
-  border-radius: 16px;
-  padding: 2rem;
-}
-
-.diff-col.lose {
-  background: rgba(255,69,58,0.06);
-  border: 1px solid rgba(255,69,58,0.2);
-}
-
-.diff-col.win {
-  background: rgba(48,209,88,0.06);
-  border: 1px solid rgba(48,209,88,0.2);
-}
-
-.diff-col-label {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-bottom: 1.5rem;
-}
-
-.lose .diff-col-label { color: var(--red); }
-.win .diff-col-label { color: var(--green); }
-
-.diff-item {
-  font-size: 15px;
-  line-height: 1.5;
-  padding: 0.6rem 0;
-  border-bottom: 1px solid var(--border);
-  color: var(--text2);
-}
-
-.diff-item:last-child { border-bottom: none; }
-.lose .diff-item { text-decoration: line-through; color: var(--text3); }
-.win .diff-item { color: var(--text); }
-
-/* RED FLAGS */
-.red-flags {
-  padding: 80px 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.flag-list { margin-top: 2.5rem; }
-
-.flag-item {
-  border-left: 3px solid var(--red);
-  padding: 1.25rem 1.5rem;
-  margin-bottom: 1rem;
-  background: rgba(255,69,58,0.04);
-  border-radius: 0 8px 8px 0;
-}
-
-.flag-title {
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--text);
-  margin-bottom: 0.4rem;
-}
-
-.flag-reason {
-  font-size: 13px;
-  color: var(--text3);
-  line-height: 1.5;
-}
-
-/* SEED IDEAS */
-.seeds-section {
-  padding: 80px 0;
-  border-bottom: 1px solid var(--border);
-  background: var(--bg2);
-}
-
-.seed-pillar {
-  margin-bottom: 2.5rem;
-}
-
-.seed-pillar-label {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text3);
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border);
-}
-
-.seed-item {
-  font-size: 15px;
-  color: var(--text2);
-  padding: 0.6rem 0;
-  border-bottom: 1px solid var(--border);
-  line-height: 1.5;
-}
-
-.seed-item:last-child { border-bottom: none; }
-
-/* IDENTITY */
-.identity-section {
-  padding: 80px 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.identity-block {
-  background: var(--bg3);
-  border: 1px solid var(--border2);
-  border-radius: 16px;
-  padding: 2.5rem;
-  max-width: 720px;
-  margin-top: 2.5rem;
-}
-
-.identity-text {
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 1.7;
-  color: var(--text);
-}
-
-.identity-text strong { font-weight: 500; color: var(--accent); }
-
-/* FOOTER */
-footer {
-  padding: 3rem 0;
-  text-align: center;
-}
-
-footer p {
-  font-size: 11px;
-  color: var(--text3);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-/* REVEAL */
-.reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .wrap { padding: 0 1.25rem; }
-  .hero { padding: 80px 0 60px; }
-  .glance-grid { grid-template-columns: repeat(2, 1fr); }
-  .stat-grid { grid-template-columns: 1fr 1fr; }
-  .quote-grid { grid-template-columns: 1fr; }
-  .pillars-grid { grid-template-columns: 1fr; }
-  .diff-grid { grid-template-columns: 1fr; }
-  .opp-item { flex-direction: column; gap: 1rem; }
-  .opp-score-wrap { text-align: left; }
-  .competitor-table { font-size: 12px; }
-  .data-table { font-size: 12px; }
-}
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --p1: #a0a0ba;
+    --p2: #dadaf9;
+    --p3: #ededfd;
+    --p4: #9893da;
+    --ink: #1C1915;
+    --ink-soft: #4A443C;
+    --ink-muted: #8A8278;
+    --surface: #fefefe;
+    --warm-mid: #e8e4f0;
+    --warm-cream: #f5f3fb;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Fraunces', Georgia, serif;
+    background: var(--surface);
+    color: var(--ink);
+    min-height: 100vh;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    padding: 3.5rem 2.5rem 2.5rem;
+    border-bottom: 1px solid var(--warm-mid);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 380px; height: 380px;
+    border-radius: 50%;
+    background: var(--p3);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  .mode-badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    background: var(--p3);
+    color: var(--p1);
+    margin-bottom: 1.4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.6rem, 7vw, 4.2rem);
+    font-weight: 300;
+    line-height: 1.08;
+    letter-spacing: -.025em;
+    margin-bottom: .6rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--p4);
+  }
+
+  .guiding-q {
+    font-size: .88rem;
+    font-family: 'DM Mono', monospace;
+    color: var(--ink-muted);
+    margin-top: 1.1rem;
+    letter-spacing: .03em;
+    border-left: 2px solid var(--p4);
+    padding-left: .8rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-lede {
+    font-size: 1.15rem;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 520px;
+    margin-top: 1.25rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-lede em { font-style: italic; color: var(--p4); }
+
+  .hero-cta {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--p4);
+    border: 1px solid var(--p2);
+    border-radius: 2px;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background .2s, border-color .2s;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    background: none;
+  }
+
+  .hero-cta:hover { background: var(--p3); border-color: var(--p4); }
+
+  /* ── Nav ── */
+  .nav-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--surface);
+    border-bottom: 1px solid var(--warm-mid);
+  }
+
+  .nav-wrap::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 1px;
+    width: 48px;
+    background: linear-gradient(to right, transparent, var(--surface));
+    pointer-events: none;
+  }
+
+  .nav {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    background: var(--surface);
+  }
+
+  .nav::-webkit-scrollbar { display: none; }
+
+  .nav button {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: .9rem 1.2rem;
+    color: var(--ink-muted);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color .2s, border-color .2s;
+  }
+
+  .nav button:hover { color: var(--ink); }
+
+  .nav button.active {
+    color: var(--p4);
+    border-bottom-color: var(--p4);
+  }
+
+  /* ── Panels ── */
+  .panel { display: none; padding: 2.5rem; animation: fadeIn .3s ease; }
+  .panel.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(7px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Typography helpers ── */
+  .sec-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--p1);
+    margin-bottom: .7rem;
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+  }
+
+  .sec-label::after {
+    content: '';
+    display: block;
+    height: 1px;
+    flex: 1;
+    background: var(--warm-mid);
+  }
+
+  .statement {
+    font-size: 1.18rem;
+    font-weight: 300;
+    line-height: 1.68;
+    color: var(--ink);
+    margin-bottom: 1.75rem;
+    max-width: 580px;
+  }
+
+  .statement em { font-style: italic; color: var(--p4); }
+
+  .big-q {
+    font-size: 1.55rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--p4);
+    margin: 1.5rem 0;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--warm-mid);
+    margin: 1.75rem 0;
+  }
+
+  /* ── Pills ── */
+  .pill-row { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+
+  .pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .06em;
+    border: 1px solid var(--p2);
+    border-radius: 100px;
+    padding: 4px 13px;
+    color: var(--p1);
+    background: var(--p3);
+  }
+
+  /* ── Accordions ── */
+  .chapter-list { list-style: none; }
+
+  .chapter-item {
+    border-bottom: 1px solid var(--warm-mid);
+    padding: 1.25rem 0;
+    cursor: pointer;
+  }
+
+  .chapter-item:first-child { border-top: 1px solid var(--warm-mid); }
+
+  .chapter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .chapter-title {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  .chapter-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--p1);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .chapter-chevron {
+    font-size: 14px;
+    color: var(--p1);
+    transition: transform .2s;
+    display: inline-block;
+    margin-left: .3rem;
+  }
+
+  .chapter-item.open .chapter-chevron { transform: rotate(90deg); }
+
+  .chapter-body {
+    display: none;
+    margin-top: .8rem;
+    font-size: .92rem;
+    line-height: 1.68;
+    color: var(--ink-soft);
+    max-width: 560px;
+    animation: fadeIn .25s ease;
+  }
+
+  .chapter-item.open .chapter-body { display: block; }
+
+  /* ── Mode cards ── */
+  .mode-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .mode-card {
+    border: 1px solid var(--p2);
+    border-radius: 4px;
+    padding: 1.3rem 1.1rem;
+    background: var(--warm-cream);
+    cursor: pointer;
+    transition: border-color .2s, background .2s;
+    text-align: left;
+  }
+
+  .mode-card:hover { border-color: var(--p4); background: var(--surface); }
+  .mode-card.lit  { border-color: var(--p4); background: var(--surface); }
+
+  .mode-name { font-size: .97rem; font-weight: 500; margin-bottom: .3rem; }
+
+  .mode-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--p1);
+    letter-spacing: .06em;
+  }
+
+  .mode-detail {
+    display: none;
+    font-size: .9rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    border-left: 2px solid var(--p4);
+    padding-left: 1rem;
+    margin-top: .8rem;
+    animation: fadeIn .25s ease;
+  }
+
+  .mode-card.lit .mode-detail { display: block; }
+
+  /* ── Skills grid ── */
+  .skill-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1px;
+    border: 1px solid var(--p2);
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--p2);
+    margin-bottom: 2rem;
+  }
+
+  .skill-cell {
+    background: var(--surface);
+    padding: 1.15rem 1.25rem;
+    cursor: pointer;
+    transition: background .18s;
+    position: relative;
+  }
+
+  .skill-cell:hover { background: var(--warm-cream); }
+  .skill-cell.active { background: var(--warm-cream); }
+
+  .skill-cell.active::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 2px;
+    background: var(--p4);
+  }
+
+  .skill-name { font-size: .93rem; font-weight: 500; line-height: 1.3; margin-bottom: .25rem; }
+
+  .skill-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--p1);
+  }
+
+  .skill-expand {
+    display: none;
+    margin-top: .7rem;
+    font-size: .88rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    animation: fadeIn .2s ease;
+  }
+
+  .skill-cell.active .skill-expand { display: block; }
+
+  /* ── Note block ── */
+  .note-block {
+    border-left: 2px solid var(--p4);
+    padding-left: 1rem;
+    font-size: .93rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin-bottom: 2rem;
+  }
+
+  .note-block strong { font-weight: 500; font-style: normal; color: var(--ink); }
+
+  /* ── Stamp ── */
+  .stamp {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .1em;
+    border: 1px solid var(--p2);
+    padding: 5px 14px;
+    border-radius: 100px;
+    color: var(--p1);
+    margin-bottom: 1.4rem;
+  }
+
+  /* ── Contact grid ── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .contact-card {
+    background: var(--warm-cream);
+    border: 1px solid var(--p2);
+    border-radius: 4px;
+    padding: 1.1rem;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color .2s;
+    display: block;
+  }
+
+  .contact-card:hover { border-color: var(--p4); }
+
+  .c-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .1em;
+    color: var(--p1);
+    margin-bottom: .3rem;
+  }
+
+  .c-value { font-size: .95rem; color: var(--ink); }
+
+  /* ── Mobile ── */
+  @media (max-width: 600px) {
+    .hero { padding: 2.2rem 1.4rem 2rem; }
+    .panel { padding: 1.8rem 1.4rem; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .nav button { padding: .85rem .9rem; font-size: 10px; }
+  }
 </style>
 </head>
 <body>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="wrap">
-    <div class="eyebrow reveal">Personal Brand Positioning · Present Tense Finance</div>
-    <h1 class="reveal">The Coach in <em>the Middle</em> of the Climb</h1>
-    <p class="hero-sub reveal">Trauma-aware financial coaching for anyone whose life just changed — feelings first, numbers second, from someone still figuring it out.</p>
-    <div class="hook-card reveal">
-      <div class="hook-label">Hook Phrase</div>
-      <div class="hook-text">"Your money isn't the problem. Your money is the messenger."</div>
-    </div>
+<!-- ── Hero ── -->
+<header class="hero">
+  <div class="mode-badge">Present Tense Finance</div>
+  <h1>Vincent<br>is <em>figuring<br>it out.</em></h1>
+  <p class="hero-lede">Trauma-aware financial coach. Builder of tools, systems, and content. The work starts with feelings — <em>because that's where the money problem actually lives.</em></p>
+  <p class="guiding-q" style="margin-top:.9rem;border-left:none;padding-left:0;font-style:italic;">I hate resumes. Here's my new take on an old classic. The resume, Vincent's way.</p>
+  <button class="hero-cta" onclick="document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});document.getElementById('meet').classList.add('active');document.querySelectorAll('.nav button').forEach(function(b){b.classList.toggle('active',b.dataset.panel==='meet')})">Work with me →</button>
+  <p class="guiding-q">Am I using my life, or is my life using me?</p>
+</header>
+
+<!-- ── Nav ── -->
+<div class="nav-wrap">
+<nav class="nav">
+  <button class="active" data-panel="how">How I think</button>
+  <button data-panel="what">What I build</button>
+  <button data-panel="arc">Where I've been</button>
+  <button data-panel="modes">How I work</button>
+  <button data-panel="skills">Last 60 days</button>
+  <button data-panel="meet">Meet me</button>
+</nav>
+</div>
+
+<!-- ── Panel: How I think ── -->
+<section id="how" class="panel active">
+  <p class="sec-label">The short version</p>
+  <p class="statement">Most financial coaching fails because it treats a <em>shame problem</em> like a math problem. I do the opposite — feelings first, numbers second — and I build the tools to make that approach work at scale.</p>
+  <p class="statement" style="font-size:1rem;">I'm a former tech worker and school bus driver working toward math teacher certification. Along the way I founded Present Tense Finance, taught myself to ship web products, and started building AI systems for small businesses. The through-line is always the same: meet people where they actually are.</p>
+  <hr class="divider">
+  <p class="sec-label">The operating system</p>
+  <p class="statement" style="font-size:1rem;">I build things because building is how I think. Not build-to-scale, build-for-applause — build because the problem is interesting and something needs to exist that doesn't yet.</p>
+  <hr class="divider">
+  <p class="sec-label">The frame I keep returning to</p>
+  <div class="big-q">"Am I using my life, or is my life using me?"</div>
+  <p class="statement" style="font-size:1rem;">This question shows up in my coaching, my content, my calendar. If I can't answer yes to the first half, I change something.</p>
+  <hr class="divider">
+  <p class="sec-label">What I'm not</p>
+  <div class="pill-row">
+    <span class="pill">not performative</span>
+    <span class="pill">not hustle-culture</span>
+    <span class="pill">not a credential collector</span>
+    <span class="pill">not waiting to be ready</span>
+    <span class="pill">not interested in fluff</span>
   </div>
 </section>
 
-<!-- AT A GLANCE -->
-<section class="at-a-glance">
-  <div class="wrap">
-    <div class="section-eyebrow reveal">At a Glance</div>
-    <div class="glance-grid reveal">
-      <div class="glance-card">
-        <div class="glance-label">Who You Serve</div>
-        <div class="glance-value">Anyone navigating a life transition — breakup, job loss, grief, upheaval — who's willing to feel their way through it</div>
-      </div>
-      <div class="glance-card">
-        <div class="glance-label">What You Do Differently</div>
-        <div class="glance-value">You start with the feelings every time. The math follows. Nobody else on YouTube is building a channel around this operating principle.</div>
-      </div>
-      <div class="glance-card">
-        <div class="glance-label">Top Opportunity Score</div>
-        <div class="score-big">88</div>
-        <div class="glance-value" style="font-size:13px;color:var(--text3);">Life Transition as Entry Point</div>
-      </div>
-      <div class="glance-card">
-        <div class="glance-label">Market Verdict</div>
-        <div class="trend-big">↑ Rising</div>
-        <div class="glance-value" style="font-size:13px;color:var(--text3);">Demand loud, supply thin — especially on YouTube</div>
-      </div>
-    </div>
+<!-- ── Panel: What I build ── -->
+<section id="what" class="panel">
+  <p class="sec-label">Things that exist because I built them</p>
+  <ul class="chapter-list" id="what-list"></ul>
+</section>
+
+<!-- ── Panel: Where I've been ── -->
+<section id="arc" class="panel">
+  <p class="sec-label">The honest arc</p>
+  <p class="statement">Tech worker → school bus driver → aspiring math teacher → financial coach → builder. It's a weird line. It's also a perfectly straight one, once you see it.</p>
+  <ul class="chapter-list" id="arc-list"></ul>
+</section>
+
+<!-- ── Panel: How I work ── -->
+<section id="modes" class="panel">
+  <p class="sec-label">How I actually operate</p>
+  <p class="statement" style="font-size:1rem;margin-bottom:1.5rem;">Energy states — tap or click any to learn more.</p>
+  <div style="max-width:640px;margin:0 auto 2rem;opacity:.92;">
+    <svg width="100%" viewBox="0 0 720 630" role="img" xmlns="http://www.w3.org/2000/svg">
+      <title>Four states of Vincent's operating system</title>
+      <desc>A Venn-style diagram showing Play, Build, and Process as overlapping circles, with their intersections labeled Tinker (Play+Build), Riff (Play+Process), and a fused core (Build+Process). Logistics/Chicken Tenders sits outside as its own standalone box.</desc>
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+      <circle cx="255" cy="215" r="155" fill="#EEEDFE" fill-opacity="0.35" stroke="#7F77DD" stroke-width="1"/>
+      <circle cx="425" cy="215" r="155" fill="#E1F5EE" fill-opacity="0.35" stroke="#1D9E75" stroke-width="1"/>
+      <circle cx="340" cy="365" r="155" fill="#FAECE7" fill-opacity="0.35" stroke="#D85A30" stroke-width="1"/>
+      <g data-node="play" style="cursor:pointer;">
+        <rect x="136" y="168" width="118" height="42" rx="8" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-opacity="0.2" stroke-width="0.5"/>
+        <text x="195" y="187" text-anchor="middle" font-size="14" font-weight="500" font-family="inherit" fill="currentColor">🎲 Play</text>
+        <text x="195" y="203" text-anchor="middle" font-size="11" font-family="inherit" fill="currentColor" opacity="0.6">curiosity, exploration</text>
+      </g>
+      <g data-node="build" style="cursor:pointer;">
+        <rect x="446" y="168" width="118" height="44" rx="8" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-opacity="0.2" stroke-width="0.5"/>
+        <text x="505" y="187" text-anchor="middle" font-size="14" font-weight="500" font-family="inherit" fill="currentColor">Build 🔨</text>
+        <text x="505" y="205" text-anchor="middle" font-size="11" font-family="inherit" fill="currentColor" opacity="0.6">making, momentum</text>
+      </g>
+      <g data-node="process" style="cursor:pointer;">
+        <rect x="274" y="420" width="132" height="46" rx="8" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-opacity="0.2" stroke-width="0.5"/>
+        <text x="340" y="440" text-anchor="middle" font-size="14" font-weight="500" font-family="inherit" fill="currentColor">Process 🌊</text>
+        <text x="340" y="459" text-anchor="middle" font-size="11" font-family="inherit" fill="currentColor" opacity="0.6">grief, texture, this season</text>
+      </g>
+      <g data-node="tinker" style="cursor:pointer;">
+        <rect x="288" y="150" width="104" height="48" rx="8" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-opacity="0.2" stroke-width="0.5"/>
+        <text x="340" y="171" text-anchor="middle" font-size="13" font-weight="500" font-family="inherit" fill="currentColor">🔧 Tinker</text>
+        <text x="340" y="188" text-anchor="middle" font-size="11" font-family="inherit" fill="currentColor" opacity="0.6">Play + Build</text>
+      </g>
+      <g data-node="riff" style="cursor:pointer;">
+        <rect x="204" y="312" width="104" height="48" rx="8" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-opacity="0.2" stroke-width="0.5"/>
+        <text x="256" y="333" text-anchor="middle" font-size="13" font-weight="500" font-family="inherit" fill="currentColor">🎷 Riff</text>
+        <text x="256" y="350" text-anchor="middle" font-size="11" font-family="inherit" fill="currentColor" opacity="0.6">Play + Process</text>
+      </g>
+      <g data-node="core" style="cursor:pointer;">
+        <rect x="368" y="312" width="120" height="48" rx="8" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-opacity="0.2" stroke-width="0.5"/>
+        <text x="428" y="333" text-anchor="middle" font-size="11" font-family="inherit" fill="currentColor" opacity="0.6">(the core) 🔥</text>
+        <text x="428" y="350" text-anchor="middle" font-size="11" font-family="inherit" fill="currentColor" opacity="0.6">Build ≡ Process</text>
+      </g>
+      <circle cx="340" cy="282" r="10" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-opacity="0.2" stroke-width="0.5"/>
+      <circle cx="340" cy="282" r="4" fill="currentColor" opacity="0.4"/>
+      <g data-node="tenders" style="cursor:pointer;">
+        <text x="566" y="458" text-anchor="middle" font-size="11" font-family="inherit" fill="currentColor" opacity="0.5">orbits alone</text>
+        <rect x="488" y="468" width="156" height="68" rx="8" fill="currentColor" fill-opacity="0.08" stroke="#854F0B" stroke-width="1"/>
+        <text x="566" y="492" text-anchor="middle" font-size="13" font-weight="500" font-family="inherit" fill="currentColor">🍗 Chicken Tenders</text>
+        <text x="566" y="510" text-anchor="middle" font-size="11" font-family="inherit" fill="currentColor" opacity="0.6">Logistics. Tends. Unsexy.</text>
+        <text x="566" y="526" text-anchor="middle" font-size="11" font-family="inherit" fill="currentColor" opacity="0.6">But the lights stay on.</text>
+      </g>
+      <line x1="488" y1="505" x2="452" y2="438" stroke="#854F0B" stroke-width="0.5" stroke-dasharray="4 4"/>
+    </svg>
+  </div>
+  <div id="mode-detail-panel" style="
+    min-height:90px;
+    margin:0 0 1.5rem;
+    padding:1.2rem 1.4rem;
+    border-left:3px solid var(--p1);
+    background:var(--warm-cream);
+    border-radius:0 8px 8px 0;
+    transition:opacity .2s;
+    opacity:0;
+    pointer-events:none;
+  ">
+    <div id="mode-detail-name" style="font-size:1rem;font-weight:500;margin-bottom:.3rem;color:var(--ink);"></div>
+    <div id="mode-detail-sub" style="font-size:.8rem;color:var(--ink-muted);margin-bottom:.6rem;font-family:'DM Mono',monospace;"></div>
+    <div id="mode-detail-body" style="font-size:.95rem;color:var(--ink-soft);line-height:1.6;"></div>
+  </div>
+  <hr class="divider">
+  <p class="sec-label">Design sensibility</p>
+  <div class="pill-row">
+    <span class="pill">warm</span>
+    <span class="pill">direct</span>
+    <span class="pill">no fluff</span>
+    <span class="pill">feelings first</span>
+    <span class="pill">present tense</span>
+    <span class="pill">nothing performative</span>
+    <span class="pill">the real thing or nothing</span>
   </div>
 </section>
 
-<!-- MARKET SNAPSHOT -->
-<section class="market-snapshot">
-  <div class="wrap">
-    <div class="section-eyebrow reveal">Market Snapshot</div>
-    <h2 class="section-title reveal">Platform Signals</h2>
-    <p class="section-sub reveal">Live research across six platforms. Every number pulled in this session.</p>
-    <div class="stat-grid reveal">
-      <div class="stat-card">
-        <div class="stat-platform">YouTube</div>
-        <div class="stat-num">$10–25</div>
-        <div class="stat-label">RPM — highest category on platform</div>
-        <div class="stat-context">Finance content earns 5–10× more than entertainment at same view count</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-platform">Competitor Gap</div>
-        <div class="stat-num">~0</div>
-        <div class="stat-label">YouTube channels owning "life transition + feelings-first finance"</div>
-        <div class="stat-context">Rahkim Sabree is the closest — but formal, credentialed, community-specific</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-platform">Audience Pain</div>
-        <div class="stat-num">High</div>
-        <div class="stat-label">Verbatim pain language widely documented</div>
-        <div class="stat-context">"I know what I should do but I can't make myself do it" — everywhere, undersupplied on YouTube</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-platform">Reddit / Substack</div>
-        <div class="stat-num">Active</div>
-        <div class="stat-label">Money shame, financial anxiety discourse is loud</div>
-        <div class="stat-context">Multiple newsletters (Money Feelings, Wealth Table) signal hungry audience</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-platform">Trauma of Money™</div>
-        <div class="stat-num">13K</div>
-        <div class="stat-label">Instagram — professional certification program</div>
-        <div class="stat-context">Aimed at training other coaches. Entirely different lane. Not a direct competitor.</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-platform">Finance RPM Trend</div>
-        <div class="stat-num">+10%</div>
-        <div class="stat-label">YoY RPM growth 2025→2026</div>
-        <div class="stat-context">Fintech advertiser competition driving rates up — tail wind for creators</div>
-      </div>
-    </div>
+<!-- ── Panel: Last 60 days ── -->
+<section id="skills" class="panel">
+  <div class="stamp">Last 60 days · Learned by doing</div>
+  <p class="statement" style="font-size:1rem;margin-bottom:1.5rem;">These aren't credentials. They're <em>reps</em> — things that exist now, on the internet, in people's hands, that didn't before.</p>
+  <div class="skill-grid" id="skill-grid"></div>
+  <div class="note-block">
+    <strong>The through-line:</strong> Every skill on this list was learned in the context of building something real. Not a tutorial. Not a course. A thing that ships, that someone can use, that has to actually work.
   </div>
 </section>
 
-<!-- DATA TABLE -->
-<section class="data-table-section">
-  <div class="wrap">
-    <div class="section-eyebrow reveal">Demand + Supply</div>
-    <h2 class="section-title reveal">The numbers behind the positioning.</h2>
-    <p class="section-sub reveal">Every angle has to earn its place on real data, not opinion.</p>
-    <div class="reveal" style="overflow-x:auto;">
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Keyword / Angle</th>
-            <th>Trend</th>
-            <th>YT Supply</th>
-            <th>Reddit 90d</th>
-            <th>Verdict</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="cell-green">Financial coaching life transitions</td>
-            <td class="arrow-up">↑ Rising</td>
-            <td class="cell-green">Very thin</td>
-            <td class="cell-accent">Moderate</td>
-            <td class="verdict">Blue ocean — high demand, no clear YouTube voice</td>
-          </tr>
-          <tr>
-            <td class="cell-green">Money shame / financial shame</td>
-            <td class="arrow-up">↑ Rising</td>
-            <td class="cell-green">Thin</td>
-            <td class="cell-green">Active</td>
-            <td class="verdict">Strongest gap — pain loud, YouTube supply near zero</td>
-          </tr>
-          <tr>
-            <td class="cell-accent">Trauma-aware financial coaching</td>
-            <td class="arrow-up">↑ Rising</td>
-            <td class="cell-accent">Emerging</td>
-            <td class="cell-accent">Moderate</td>
-            <td class="verdict">Credentialed professionals own it offline — YouTube open</td>
-          </tr>
-          <tr>
-            <td class="cell-accent">Starting over financially after breakup/job loss</td>
-            <td class="arrow-up">↑ Rising</td>
-            <td class="cell-accent">Scattered</td>
-            <td class="cell-green">High</td>
-            <td class="verdict">High search intent, no consistent voice covering it</td>
-          </tr>
-          <tr>
-            <td class="cell-accent">Feelings first money</td>
-            <td class="arrow-flat">→ Emerging</td>
-            <td class="cell-green">Near zero</td>
-            <td class="cell-accent">Low</td>
-            <td class="verdict">No competition — but requires audience education</td>
-          </tr>
-          <tr>
-            <td class="cell-muted">Personal finance budgeting tips</td>
-            <td class="arrow-flat">→ Flat</td>
-            <td class="cell-red">Saturated</td>
-            <td class="cell-red">High</td>
-            <td class="verdict">Red ocean — Ramsey, Sethi, dozens of others dominate</td>
-          </tr>
-          <tr>
-            <td class="cell-muted">Zero-based budgeting</td>
-            <td class="arrow-down">↓ Declining</td>
-            <td class="cell-red">Oversupplied</td>
-            <td class="cell-red">High</td>
-            <td class="verdict">Explicitly the thing PTF argues against — avoid</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="table-footnote reveal">Sources: YouTube search, Reddit site search, Google Trends. All data pulled live May 2026.</p>
+<!-- ── Panel: Meet me ── -->
+<section id="meet" class="panel">
+  <p class="sec-label">If you want to actually connect</p>
+  <p class="statement" style="font-size:1rem;">I'm not trying to scale a network. I'm trying to be useful to people who are already well-connected — or building something real. If that's you, reach out.</p>
+  <div class="contact-grid">
+    <a class="contact-card" href="https://www.youtube.com/@PresentTenseFinance" target="_blank" rel="noopener">
+      <div class="c-label">YouTube</div>
+      <div class="c-value">Present Tense Finance</div>
+    </a>
+    <a class="contact-card" href="https://calendly.com/presenttensefinance" target="_blank" rel="noopener">
+      <div class="c-label">Coaching</div>
+      <div class="c-value">Book a call</div>
+    </a>
+    <a class="contact-card" href="mailto:presenttensefinance@gmail.com">
+      <div class="c-label">Email</div>
+      <div class="c-value">presenttensefinance@gmail.com</div>
+    </a>
+    <a class="contact-card" href="sms:3035483695">
+      <div class="c-label">Text</div>
+      <div class="c-value">(303) 548-3695</div>
+    </a>
+    <a class="contact-card" href="https://www.teacherspayteachers.com/Product/Building-a-Budget-Complete-9th-Grade-Personal-Finance-Lesson-50-min-16257693" target="_blank" rel="noopener">
+      <div class="c-label">Free lesson — TPT</div>
+      <div class="c-value">Building a Budget</div>
+    </a>
+    <a class="contact-card" href="https://www.etsy.com/listing/4487672037/present-tense-finance-google-sheets?sr_prefetch=0&pf_from=shop_home&ref=shop_home_active_1&dd=1&logging_key=5192493975fce98face0f9a05539b83b44049199%3A4487672037" target="_blank" rel="noopener">
+      <div class="c-label">Budget template</div>
+      <div class="c-value">Etsy — Mindful Money</div>
+    </a>
   </div>
+  <hr class="divider">
+  <p class="sec-label">Currently working on</p>
+  <p class="statement" style="font-size:.93rem;color:var(--ink-soft);">Closing the first PTF client. Per-client AI prompt configs. Hitting $7k savings by August. Posting Thursdays. Asking the guiding question. Repeat.</p>
+  <hr class="divider">
+  <div class="big-q">"Because right now matters."</div>
 </section>
-
-<!-- AUDIENCE LANGUAGE -->
-<section class="audience-section">
-  <div class="wrap">
-    <div class="section-eyebrow reveal">Audience Language Map</div>
-    <h2 class="section-title reveal">Their words, not yours.</h2>
-    <p class="section-sub reveal">Verbatim language from Reddit, Substack, and public forums. This is what you're speaking to.</p>
-    <div class="quote-grid reveal">
-      <div>
-        <div class="quote-col-label">Pain</div>
-        <div class="quote-card">
-          <span class="quote-mark">"</span>
-          <p class="quote-text">I know what I should do. I just can't make myself do it. It's like there's something in the way but I can't name what it is.</p>
-          <div class="quote-source">Reddit — r/personalfinance, recurring pattern</div>
-        </div>
-        <div class="quote-card">
-          <span class="quote-mark">"</span>
-          <p class="quote-text">Money shame is the intensely painful feeling of believing we are flawed and therefore unworthy of love or belonging based on our bank account.</p>
-          <div class="quote-source">Wealth Table Substack — widely resonated</div>
-        </div>
-        <div class="quote-card">
-          <span class="quote-mark">"</span>
-          <p class="quote-text">There are enough gurus out there shaming people into not spending at all. This does not help people.</p>
-          <div class="quote-source">NerdWallet Canada, financial advisor quote</div>
-        </div>
-      </div>
-      <div>
-        <div class="quote-col-label">Aspiration</div>
-        <div class="quote-card">
-          <span class="quote-mark">"</span>
-          <p class="quote-text">I want to feel calm when I look at my bank account. Not perfect. Just calm. Like it's information, not a verdict on me.</p>
-          <div class="quote-source">Money Feelings Substack reader comments</div>
-        </div>
-        <div class="quote-card">
-          <span class="quote-mark">"</span>
-          <p class="quote-text">Confidence around money is not about earning more. It's about clarity, control, and consistency.</p>
-          <div class="quote-source">MEXC personal finance research 2026</div>
-        </div>
-        <div class="quote-card">
-          <span class="quote-mark">"</span>
-          <p class="quote-text">I want to rebuild — not start over. I've already built things. I just need to find them again.</p>
-          <div class="quote-source">Life transition coaching forum, recurring theme</div>
-        </div>
-      </div>
-      <div>
-        <div class="quote-col-label">Questions Nobody Answers</div>
-        <div class="quote-card">
-          <span class="quote-mark">"</span>
-          <p class="quote-text">Why do I feel so much shame about money even when I'm doing okay? Why does looking at my finances feel like an indictment?</p>
-          <div class="quote-source">r/financialindependence, upvoted thread</div>
-        </div>
-        <div class="quote-card">
-          <span class="quote-mark">"</span>
-          <p class="quote-text">What do you actually do with your money when your whole life just changed? All the advice assumes your life is stable.</p>
-          <div class="quote-source">Reddit, post-divorce financial threads</div>
-        </div>
-        <div class="quote-card">
-          <span class="quote-mark">"</span>
-          <p class="quote-text">Is it normal to avoid looking at your bank account for months when things are falling apart? Does that make me bad with money or just human?</p>
-          <div class="quote-source">Substack comments — The Simplified Year, Aug 2025</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- COMPETITOR TABLE -->
-<section class="competitor-section">
-  <div class="wrap">
-    <div class="section-eyebrow reveal">Competitor Landscape</div>
-    <h2 class="section-title reveal">Who's in the space and what they miss.</h2>
-    <div class="reveal" style="overflow-x:auto;margin-top:2.5rem;">
-      <table class="competitor-table">
-        <thead>
-          <tr>
-            <th>Creator / Brand</th>
-            <th>Platform / Reach</th>
-            <th>What They Own</th>
-            <th>What They Miss</th>
-            <th>Your Opportunity</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Dave Ramsey</strong></td>
-            <td>YouTube / Podcast — millions</td>
-            <td>Debt elimination, tough love, Christian financial framework</td>
-            <td class="miss-cell">Shame-based, zero emotional intelligence, no life transition lens</td>
-            <td class="opp-cell">Everyone who felt judged by Ramsey is your audience</td>
-          </tr>
-          <tr>
-            <td><strong>Ramit Sethi</strong></td>
-            <td>YouTube — 1M+ subs</td>
-            <td>Systems, automation, "rich life" aspiration</td>
-            <td class="miss-cell">Assumes emotional regulation is already handled; skips the feelings layer entirely</td>
-            <td class="opp-cell">His audience who can't execute the system</td>
-          </tr>
-          <tr>
-            <td><strong>Rahkim Sabree</strong></td>
-            <td>YouTube / Substack — 2-3K subs</td>
-            <td>Financial trauma expertise, Black community focus, accredited credentials</td>
-            <td class="miss-cell">Formal and credentialed; not in-process; community-specific; low YouTube presence</td>
-            <td class="opp-cell">Same emotional territory, broader audience, first-person voice</td>
-          </tr>
-          <tr>
-            <td><strong>Trauma of Money™</strong></td>
-            <td>Instagram — 13K; certification program</td>
-            <td>Professional training for coaches and therapists; institutional</td>
-            <td class="miss-cell">Not for individuals; no YouTube; $2K+ price point; no personal voice</td>
-            <td class="opp-cell">The consumer-facing version of their B2B product</td>
-          </tr>
-          <tr>
-            <td><strong>Divorce financial coaches</strong></td>
-            <td>Scattered YouTube / website</td>
-            <td>CDFA credentials, settlement logistics, legal complexity</td>
-            <td class="miss-cell">One transition only; transactional; no emotional integration</td>
-            <td class="opp-cell">All transitions, not just divorce; feelings first</td>
-          </tr>
-          <tr>
-            <td><strong>WhiteBoard Finance / similar</strong></td>
-            <td>YouTube — hundreds of thousands</td>
-            <td>Visual, beginner-friendly explanations of finance concepts</td>
-            <td class="miss-cell">Completely feelings-neutral; assumes readiness to learn; no personal story</td>
-            <td class="opp-cell">The people who watched their videos and still couldn't act</td>
-          </tr>
-          <tr>
-            <td><strong>Money Feelings (Substack)</strong></td>
-            <td>Substack newsletter</td>
-            <td>Financial self-care, trauma + money intersection, emotional angle</td>
-            <td class="miss-cell">No YouTube presence; no personal coaching; newsletter only</td>
-            <td class="opp-cell">Video version of their audience's exact need</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- THREE PILLARS -->
-<section class="pillars-section">
-  <div class="wrap">
-    <div class="section-eyebrow reveal">The Three Pillars</div>
-    <h2 class="section-title reveal">Positioning angles, ranked by opportunity.</h2>
-    <div class="pillars-grid reveal">
-      <div class="pillar-card">
-        <div class="pillar-num">Pillar 01</div>
-        <div class="pillar-name">Life Transition as Entry Point</div>
-        <div class="pillar-def">Nobody in personal finance YouTube has claimed "I serve people whose lives just changed." Divorce coaches exist. Grief coaches exist. Financial coaches exist. Nobody connects all three under one accessible, first-person roof.</div>
-        <div class="pillar-why">Why it wins: The search intent is massive and completely underserved on YouTube. Every major life disruption triggers financial anxiety — and those people are searching right now.</div>
-        <div class="pillar-score">
-          <span class="score-num">88</span>
-          <span class="score-label">/ 100 opportunity</span>
-        </div>
-      </div>
-      <div class="pillar-card">
-        <div class="pillar-num">Pillar 02</div>
-        <div class="pillar-name">The Anti-Guru</div>
-        <div class="pillar-def">Simple, modest, in-process. Teaching from Phase III of VI, not from the mountaintop. The entire personal finance YouTube universe performs confidence and arrival. You perform presence and honesty.</div>
-        <div class="pillar-why">Why it wins: Trust is the scarcest resource in personal finance content. "I'm still figuring it out" builds more trust than any credential for people who've been let down by the arrived voice.</div>
-        <div class="pillar-score">
-          <span class="score-num">82</span>
-          <span class="score-label">/ 100 opportunity</span>
-        </div>
-      </div>
-      <div class="pillar-card">
-        <div class="pillar-num">Pillar 03</div>
-        <div class="pillar-name">Feelings First as Methodology</div>
-        <div class="pillar-def">The insight that shame is the barrier — not information — is documented loudly in audience language everywhere. Almost nobody is building a YouTube channel around reordering the whole stack feelings-first.</div>
-        <div class="pillar-why">Why it wins: It's a diagnosable, teachable insight that creates an entire content arc. Every video has a premise. Every video has a reframe. The methodology generates the content.</div>
-        <div class="pillar-score">
-          <span class="score-num">79</span>
-          <span class="score-label">/ 100 opportunity</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- BLUE OCEAN -->
-<section class="blue-ocean">
-  <div class="wrap">
-    <div class="section-eyebrow reveal">Open</div>
-    <h2 class="section-title reveal">Blue Ocean Opportunities</h2>
-    <p class="section-sub reveal">Ranked by evidence of demand vs. absence of supply.</p>
-    <div class="opp-list reveal">
-      <div class="opp-item">
-        <div class="opp-rank">01</div>
-        <div class="opp-content">
-          <div class="opp-name">Life Transition Finance — the unclaimed category</div>
-          <div class="opp-desc">Breakup, job loss, grief, moving — financial chaos that follows life upheaval is a documented, high-search-intent need. No consistent YouTube voice owns this across all transition types.</div>
-          <div class="opp-why">Competitor gap: divorce coaches own one slice; grief coaches own another; neither speaks money-first and feelings-first simultaneously.</div>
-        </div>
-        <div class="opp-score-wrap">
-          <div class="opp-score">88</div>
-          <div class="opp-score-label">opportunity</div>
-        </div>
-      </div>
-      <div class="opp-item">
-        <div class="opp-rank">02</div>
-        <div class="opp-content">
-          <div class="opp-name">The "I know but I can't" Audience</div>
-          <div class="opp-desc">People who have consumed financial content, know the theory, and still can't execute. The barrier isn't information — it's the emotional layer. This is PTF's most specific and most underserved audience segment.</div>
-          <div class="opp-why">Competitor gap: every major finance channel assumes readiness. Nobody is making content for people who are stuck at the feelings layer.</div>
-        </div>
-        <div class="opp-score-wrap">
-          <div class="opp-score">85</div>
-          <div class="opp-score-label">opportunity</div>
-        </div>
-      </div>
-      <div class="opp-item">
-        <div class="opp-rank">03</div>
-        <div class="opp-content">
-          <div class="opp-name">First-Person Field Research — public documentation</div>
-          <div class="opp-desc">Running the methodology on yourself in real time, in public, with Phase markers. Not "here's what I learned," but "here's what I'm learning." This is a specific content format with no template — you invented it by existing in it.</div>
-          <div class="opp-why">Competitor gap: nobody in finance YouTube is teaching from inside the experience. The credentialed voices are all past tense. You're present tense.</div>
-        </div>
-        <div class="opp-score-wrap">
-          <div class="opp-score">81</div>
-          <div class="opp-score-label">opportunity</div>
-        </div>
-      </div>
-      <div class="opp-item">
-        <div class="opp-rank">04</div>
-        <div class="opp-content">
-          <div class="opp-name">Anti-Latte-Lecture Finance</div>
-          <div class="opp-desc">Explicit counter-positioning to zero-sum budgeting orthodoxy. The latte lecture is the most documented grievance in personal finance content. Owning the "that's not the problem" message draws in everyone it's failed.</div>
-          <div class="opp-why">Competitor gap: even the "softer" finance channels don't explicitly challenge the system. You have permission to — because your methodology is the alternative, not just the critique.</div>
-        </div>
-        <div class="opp-score-wrap">
-          <div class="opp-score">76</div>
-          <div class="opp-score-label">opportunity</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- DIFFERENTIATION -->
-<section class="diff-section">
-  <div class="wrap">
-    <div class="section-eyebrow reveal">Differentiation Playbook</div>
-    <h2 class="section-title reveal">What everyone else does. What you do.</h2>
-    <div class="diff-grid reveal">
-      <div class="diff-col lose">
-        <div class="diff-col-label">What Everyone Does</div>
-        <div class="diff-item">Teaches from arrival — "here's what worked for me"</div>
-        <div class="diff-item">Numbers first, feelings never</div>
-        <div class="diff-item">Assumes emotional stability before giving advice</div>
-        <div class="diff-item">Generic demographics (millennials, women, beginners)</div>
-        <div class="diff-item">Tips-driven content — actionable, forgettable</div>
-        <div class="diff-item">The latte lecture, again</div>
-        <div class="diff-item">Credentials as the credibility layer</div>
-      </div>
-      <div class="diff-col win">
-        <div class="diff-col-label">What You Do</div>
-        <div class="diff-item">Teaches from inside — "here's what's happening to me right now"</div>
-        <div class="diff-item">Feelings first, always — numbers follow when they're ready</div>
-        <div class="diff-item">Meets people exactly in the emotional chaos</div>
-        <div class="diff-item">Psychographic — people who are willing to feel their way through it</div>
-        <div class="diff-item">Methodology-driven content — diagnostic, memorable, stackable</div>
-        <div class="diff-item">Explicit: the math is not the problem</div>
-        <div class="diff-item">The lived arc as the credibility layer</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- RED FLAGS -->
-<section class="red-flags">
-  <div class="wrap">
-    <div class="section-eyebrow reveal">What to Avoid</div>
-    <h2 class="section-title reveal">Red flags.</h2>
-    <div class="flag-list reveal">
-      <div class="flag-item">
-        <div class="flag-title">"Financial wellness" as a descriptor</div>
-        <div class="flag-reason">Exhausted term, no teeth. Every corporate HR program uses it. It signals nothing specific about your methodology and dilutes the positioning.</div>
-      </div>
-      <div class="flag-item">
-        <div class="flag-title">Anything that sounds like therapy</div>
-        <div class="flag-reason">Scope creep and liability. PTF is coaching, not clinical. When someone needs professional mental health support, you say so and refer out. Draw the line clearly and early.</div>
-      </div>
-      <div class="flag-item">
-        <div class="flag-title">The word "journey"</div>
-        <div class="flag-reason">Every coach uses it. It's the personal development equivalent of "synergy." You already have better language — "figuring it out," "the climb," "phase III of VI." Use that.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SEED IDEAS -->
-<section class="seeds-section">
-  <div class="wrap">
-    <div class="section-eyebrow reveal">Content Seeds</div>
-    <h2 class="section-title reveal">Raw topics, by pillar.</h2>
-    <p class="section-sub reveal">Not titles. Not hooks. Just the territory each pillar opens up.</p>
-    <div class="reveal">
-      <div class="seed-pillar">
-        <div class="seed-pillar-label">Pillar 01 — Life Transition as Entry Point</div>
-        <div class="seed-item">What happens to your money when your life falls apart</div>
-        <div class="seed-item">The financial decisions you make in the first 90 days after a major change</div>
-        <div class="seed-item">Why all the advice assumes your life is stable (and what to do when it isn't)</div>
-        <div class="seed-item">The money stuff nobody tells you about after a breakup</div>
-        <div class="seed-item">Moving back home — the shame piece nobody talks about</div>
-      </div>
-      <div class="seed-pillar">
-        <div class="seed-pillar-label">Pillar 02 — The Anti-Guru</div>
-        <div class="seed-item">I'm in Phase III of VI — here's what that means financially</div>
-        <div class="seed-item">Why I'm my own first client (and what that costs me to admit)</div>
-        <div class="seed-item">The arbitrary rule I was following that was making everything harder</div>
-        <div class="seed-item">What I learned driving a school bus that I use every day in my finances</div>
-        <div class="seed-item">Teaching from inside the mess — why I don't wait until I've figured it out</div>
-      </div>
-      <div class="seed-pillar">
-        <div class="seed-pillar-label">Pillar 03 — Feelings First Methodology</div>
-        <div class="seed-item">Why knowing what to do is not the problem</div>
-        <div class="seed-item">The real reason zero-based budgeting fails people in crisis</div>
-        <div class="seed-item">What shame actually does to your spending (the mechanism)</div>
-        <div class="seed-item">How to look at your bank account when looking at your bank account feels impossible</div>
-        <div class="seed-item">The difference between what you feel about money and what your money actually is</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- IDENTITY -->
-<section class="identity-section">
-  <div class="wrap">
-    <div class="section-eyebrow reveal">Identity Statement</div>
-    <h2 class="section-title reveal">Paste-ready for bio, intro, or one-pager.</h2>
-    <div class="identity-block reveal">
-      <p class="identity-text">
-        I'm Vincent, the founder of Present Tense Finance. I'm a former tech worker, a former special needs school bus driver, and an aspiring math teacher — and all three of those chapters converge here. <strong>I coach people through the financial chaos that follows life transitions</strong> — breakups, job loss, grief, upheaval — using a methodology that starts with feelings and lets the numbers follow. I'm not teaching from a mountaintop. I'm in Phase III of VI right now, running this methodology on myself, in public, in real time. <strong>The core insight is simple: your money isn't the problem. Your money is the messenger.</strong> If you already know what you should do but can't make yourself do it, shame is in the way — not knowledge. That's the work. That's Present Tense Finance.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="wrap">
-    <p>Generated May 2026 · Built with pd-personal-brand-positioning · Present Tense Finance</p>
-  </div>
-</footer>
 
 <script>
-const reveals = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
+  // ── Mode detail panel ──
+  const modeData = {
+    play: {
+      name: "🎲 Play",
+      sub: "curiosity, exploration",
+      body: "Where things start without a destination. I follow the problem because it's interesting, not because it's practical. Most of the good stuff came from here first."
+    },
+    build: {
+      name: "Build 🔨",
+      sub: "making, momentum",
+      body: "Where things get made. Not build-to-scale or build-for-applause — build because something needs to exist that doesn't yet. Momentum lives here."
+    },
+    process: {
+      name: "Process 🌊",
+      sub: "grief, texture, this season",
+      body: "The texture underneath everything right now. Grief, transition, figuring it out in public. It's not a phase to get through — it's the actual material."
+    },
+    tinker: {
+      name: "🔧 Tinker",
+      sub: "Play + Build",
+      body: "This is where the weird stuff lives. I build a tool because the problem is interesting. I make this page because \"resume\" felt wrong. Build and Process are inseparable right now — I learn by making."
+    },
+    riff: {
+      name: "🎷 Riff",
+      sub: "Play + Process",
+      body: "Thinking out loud — in conversation, in content, in frameworks. This is how I develop ideas. I talk my way to clarity. The YouTube arc started as a riff. Most of PTF did."
+    },
+    core: {
+      name: "(the core) 🔥",
+      sub: "Build ≡ Process",
+      body: "Build and Process aren't two things happening at once — they're the same motion from different angles. The grief is doing the building. The building is metabolizing the grief. There's no seam between them."
+    },
+    tenders: {
+      name: "🍗 Chicken Tenders",
+      sub: "Logistics · orbits alone",
+      body: "Unsexy, non-negotiable. Emails get sent. Deployments get checked. Invoices get submitted. The lights stay on. I don't romanticize this one. I just do it."
     }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  };
 
-reveals.forEach(el => observer.observe(el));
+  const panel = document.getElementById('mode-detail-panel');
+  const panelName = document.getElementById('mode-detail-name');
+  const panelSub = document.getElementById('mode-detail-sub');
+  const panelBody = document.getElementById('mode-detail-body');
+  let activeNode = null;
+
+  document.querySelectorAll('[data-node]').forEach(function(node) {
+    node.addEventListener('click', function() {
+      const key = node.getAttribute('data-node');
+      if (activeNode === key) {
+        activeNode = null;
+        panel.style.opacity = '0';
+        panel.style.pointerEvents = 'none';
+        resetHighlights();
+        return;
+      }
+      activeNode = key;
+      const d = modeData[key];
+      panelName.textContent = d.name;
+      panelSub.textContent = d.sub;
+      panelBody.textContent = d.body;
+      panel.style.opacity = '1';
+      panel.style.pointerEvents = 'auto';
+      resetHighlights();
+      var r = node.querySelector('rect');
+      if (r) r.setAttribute('fill-opacity', '0.18');
+      panel.scrollIntoView({behavior:'smooth', block:'nearest'});
+    });
+  });
+
+  function resetHighlights() {
+    document.querySelectorAll('[data-node]').forEach(function(n) {
+      var r = n.querySelector('rect');
+      if (r) r.setAttribute('fill-opacity', '0.08');
+    });
+  }
+
+  const whatItems = [
+    {
+      title: "Present Tense Finance",
+      tag: "Coaching · Active",
+      body: "Trauma-aware financial coaching for single moms and anyone mid-figuring-it-out. The core insight: money shame is the actual barrier. The numbers are just the symptom. So I start with the feelings — every session, every time — and let the math follow. Weekly YouTube content. Live clients. One pager in the wild."
+    },
+    {
+      title: "AI lead capture system",
+      tag: "Automation · Live",
+      body: "A deployable AI-powered lead capture and qualification system. Python/Flask, Railway, Google Sheets, Anthropic API. Per-client persona customization baked in from day one. This is also my sales practice — I'm learning to close by building something worth closing."
+    },
+
+    {
+      title: "Building a Budget — free lesson on TPT",
+      tag: "Edtech · Free",
+      body: "A free 50-minute personal finance lesson for young adults, hosted on Teachers Pay Teachers. Complete 9th grade unit — budgeting, real decisions, no textbook fluff. Built because the gap between what schools teach about money and what people actually need to know is enormous."
+    },
+    {
+      title: "PTF YouTube",
+      tag: "Content · Thursdays 7:30 MST",
+      body: "Weekly content on money, shame, and the actual work of changing your relationship with both. The arc is alive — it evolves the same way the coaching does, the same way I do. Methodology-driven, not tips-driven. Figuring itself out in public, on purpose."
+    },
+    {
+      title: "PDF workbook + affiliate model",
+      tag: "Product · In progress",
+      body: "A standalone workbook product with an influencer affiliate distribution model. Building the product and the outreach strategy in parallel — cold enough to be replicable, warm enough to be human."
+    }
+  ];
+
+  const arcItems = [
+    {
+      title: "Tech worker",
+      tag: "The foundation",
+      body: "Worked in tech long enough to understand systems, tooling, and how products actually get built. Left when the fit stopped making sense. Kept the skills."
+    },
+    {
+      title: "School bus driver — special needs",
+      tag: "The unexpected teacher",
+      body: "Drove a school bus for kids with special needs for several years. This job taught presence. Patience. Regulation — your own, first, so you can hold space for someone else's. The kids who need the most from you give you the clearest feedback. That's the best training there is, and it shows up in everything I do now."
+    },
+    {
+      title: "Aspiring math teacher",
+      tag: "In progress",
+      body: "Working toward certification. Math teaching is where I'm headed — not away from coaching or building, but alongside it. The classroom is where I first learned that most people aren't stuck because they're not smart. They're stuck because no one made it safe to not know yet."
+    },
+    {
+      title: "Present Tense Finance",
+      tag: "The synthesis",
+      body: "Financial coaching that starts with feelings. Built for the people who already know what to do but can't make themselves do it — because the shame is in the way. Everything before this converges here: the tech intuition, the patience from the bus, the math teacher's instinct to meet people where they are."
+    }
+  ];
+
+  const skillItems = [
+    {
+      name: "Build and ship web products",
+      tag: "Making",
+      detail: "HTML, CSS, JS — not as a developer but as a builder. Paginated experiences, theming systems, audio integration, persistent data, deployment via GitHub and Netlify. Coding was already in the toolkit. AI changed what became possible to build alone."
+    },
+    {
+      name: "Work with AI as a collaborator",
+      tag: "Thinking",
+      detail: "Not just prompting. Thinking in sessions, building thread, knowing when to push and when to park. Claude as a thinking partner — not a vending machine."
+    },
+    {
+      name: "Create and edit audio",
+      tag: "Production",
+      detail: "Recording narration, managing clips, understanding how browsers handle audio playback, working around mobile constraints. CapCut for short form. A whole audio layer on a web product."
+    },
+    {
+      name: "Write in a voice",
+      tag: "Voice",
+      detail: "The workbook, the scripts, the guide narration, the one pager — all of it has the same register. Warm, direct, shame-free. This is a skill most people don't know they're developing until they look back."
+    },
+    {
+      name: "Content architecture",
+      tag: "Systems",
+      detail: "Longform to shortform to persistent text to workbook. Knowing how ideas travel across formats and compound over time."
+    },
+    {
+      name: "Think in systems",
+      tag: "Strategy",
+      detail: "Funnels, onramps, flywheels — not as buzzwords but as actual decisions about what connects to what and why."
+    },
+    {
+      name: "Affiliate and outreach strategy",
+      tag: "Outreach",
+      detail: "Cold enough to be replicable, warm enough to be human. The structure of a clear and honest ask."
+    },
+    {
+      name: "Long and short form video",
+      tag: "Video",
+      detail: "Scripting, on-camera presence, pacing, the edit, thumbnails, hooks — the specific grammar of YouTube versus a short. Still being developed. Weekly reps are the teacher. There's no shortcut."
+    }
+  ];
+
+  function buildAccordion(listId, items) {
+    const ul = document.getElementById(listId);
+    items.forEach(item => {
+      const li = document.createElement('li');
+      li.className = 'chapter-item';
+      li.innerHTML =
+        '<div class="chapter-header">' +
+          '<span class="chapter-title">' + item.title + ' <span class="chapter-chevron">›</span></span>' +
+          '<span class="chapter-tag">' + item.tag + '</span>' +
+        '</div>' +
+        '<div class="chapter-body">' + item.body + '</div>';
+      li.addEventListener('click', function() {
+        var isOpen = li.classList.contains('open');
+        ul.querySelectorAll('.chapter-item').forEach(function(c) { c.classList.remove('open'); });
+        if (!isOpen) li.classList.add('open');
+      });
+      ul.appendChild(li);
+    });
+  }
+
+  function buildSkills() {
+    var grid = document.getElementById('skill-grid');
+    skillItems.forEach(function(s) {
+      var cell = document.createElement('div');
+      cell.className = 'skill-cell';
+      cell.innerHTML =
+        '<div class="skill-name">' + s.name + '</div>' +
+        '<div class="skill-tag">' + s.tag + '</div>' +
+        '<div class="skill-expand">' + s.detail + '</div>';
+      cell.addEventListener('click', function() {
+        var isActive = cell.classList.contains('active');
+        grid.querySelectorAll('.skill-cell').forEach(function(c) { c.classList.remove('active'); });
+        if (!isActive) cell.classList.add('active');
+      });
+      grid.appendChild(cell);
+    });
+  }
+
+  document.querySelectorAll('.nav button').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('active'); });
+      document.querySelectorAll('.nav button').forEach(function(b) { b.classList.remove('active'); });
+      document.getElementById(btn.dataset.panel).classList.add('active');
+      btn.classList.add('active');
+    });
+  });
+
+  document.querySelectorAll('[data-mode]').forEach(function(card) {
+    card.addEventListener('click', function() {
+      var isLit = card.classList.contains('lit');
+      document.querySelectorAll('[data-mode]').forEach(function(c) { c.classList.remove('lit'); });
+      if (!isLit) card.classList.add('lit');
+    });
+  });
+
+  buildAccordion('what-list', whatItems);
+  buildAccordion('arc-list', arcItems);
+  buildSkills();
 </script>
 </body>
 </html>
